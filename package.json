@@ -1,0 +1,13 @@
+{
+  "name": "vehicle-api",
+  "version": "1.0.0",
+  "description": "Vehicle CRUD REST API",
+  "type": "module",
+  "scripts": {
+    "dev": "bun run --watch src/index.ts",
+    "start": "bun run src/index.ts",
+    "test": "bun test"
+  },
+  "keywords": ["vehicle", "api", "rest", "crud"],
+  "license": "MIT"
+}
