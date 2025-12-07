@@ -1,8 +1,14 @@
-import Fastify from 'fastify';
+import Fastify, { FastifyError } from 'fastify';
 import fastifySwagger from '@fastify/swagger';
 import fastifySwaggerUi from '@fastify/swagger-ui';
 import { vehicleRoutes } from './routes/vehicle.routes.js';
 import { connectDb } from './db.js';
+
+interface ValidationError {
+  instancePath: string;
+  message?: string;
+  params?: { missingProperty?: string };
+}
 
 export async function buildApp() {
   const app = Fastify({
@@ -39,13 +45,13 @@ export async function buildApp() {
   });
 
   // Error handler for validation errors (return 422 instead of 400)
-  app.setErrorHandler((error, request, reply) => {
+  app.setErrorHandler((error: FastifyError, request, reply) => {
     if (error.validation) {
       return reply.status(422).send({
         statusCode: 422,
         error: 'Unprocessable Entity',
         message: 'Validation failed',
-        details: error.validation.map((v) => ({
+        details: (error.validation as ValidationError[]).map((v: ValidationError) => ({
           field: v.instancePath.replace('/', '') || v.params?.missingProperty || 'unknown',
           message: v.message || 'Invalid value',
         })),
