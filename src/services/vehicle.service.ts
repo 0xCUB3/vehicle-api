@@ -1,4 +1,4 @@
-import { Prisma } from '@prisma/client';
+import { Prisma } from '../generated/prisma/client.js';
 import { prisma } from '../db.js';
 import { normalizeVin } from '../utils/vin-validator.js';
 import type { CreateVehicleInput, UpdateVehicleInput, FilterParams, PaginationParams } from '../types/vehicle.js';
