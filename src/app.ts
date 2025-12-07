@@ -15,6 +15,11 @@ export async function buildApp() {
     logger: {
       level: process.env.LOG_LEVEL || 'info',
     },
+    ajv: {
+      customOptions: {
+        keywords: ['example'],
+      },
+    },
   });
 
   // Connect to database
