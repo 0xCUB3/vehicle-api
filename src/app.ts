@@ -33,11 +33,14 @@ export async function buildApp() {
         description: 'CRUD API for managing vehicles',
         version: '1.0.0',
       },
-      servers: [
-        {
-          url: `http://localhost:${process.env.PORT || 3000}`,
-        },
-      ],
+      servers: process.env.VERCEL_URL
+        ? [
+            { url: `https://${process.env.VERCEL_URL}`, description: 'Production' },
+            { url: `http://localhost:${process.env.PORT || 3000}`, description: 'Local' },
+          ]
+        : [
+            { url: `http://localhost:${process.env.PORT || 3000}`, description: 'Local' },
+          ],
       tags: [
         { name: 'vehicles', description: 'Vehicle operations' },
         { name: 'health', description: 'Health check' },
