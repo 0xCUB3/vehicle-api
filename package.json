@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "bun run --watch src/index.ts",
     "start": "bun run src/index.ts",
-    "test": "bun test"
+    "test": "bun test",
+    "build": "prisma generate",
+    "postinstall": "prisma generate"
   },
   "keywords": ["vehicle", "api", "rest", "crud"],
   "license": "MIT",
