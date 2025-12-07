@@ -184,3 +184,38 @@ src/
    - Detailed error messages for debugging
 
 5. **Decimal Handling**: Purchase prices stored as PostgreSQL DECIMAL(12,2) for financial accuracy.
+
+## Deployment
+
+### Deploy to Vercel + Neon (Recommended)
+
+1. **Create a Neon database**:
+   - Sign up at [neon.tech](https://neon.tech)
+   - Create a new project and copy the connection string
+
+2. **Deploy to Vercel**:
+   ```bash
+   # Install Vercel CLI
+   npm i -g vercel
+
+   # Deploy
+   vercel
+   ```
+
+3. **Set environment variable**:
+   - In Vercel dashboard, add `DATABASE_URL` with your Neon connection string
+
+4. **Push database schema**:
+   ```bash
+   DATABASE_URL="your-neon-connection-string" bunx prisma db push
+   ```
+
+The API will be live at your Vercel URL with automatic HTTPS and scaling.
+
+### Environment Variables
+
+| Variable | Description |
+|----------|-------------|
+| `DATABASE_URL` | PostgreSQL connection string |
+| `PORT` | Server port (default: 3000) |
+| `LOG_LEVEL` | Logging level (default: info) |
