@@ -1,9 +1,13 @@
 import 'dotenv/config';
 import { buildApp } from '../src/app.js';
+import type { IncomingMessage, ServerResponse } from 'http';
 
-const app = await buildApp();
+let app: Awaited<ReturnType<typeof buildApp>>;
 
-export default async function handler(req: Request): Promise<Response> {
+export default async function handler(req: IncomingMessage, res: ServerResponse) {
+  if (!app) {
+    app = await buildApp();
+  }
   await app.ready();
-  return app.fetch(req);
+  app.server.emit('request', req, res);
 }
